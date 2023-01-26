@@ -41,6 +41,13 @@ namespace Reaqtor.TestingFramework
                 }
             }
 
+            protected override void Dispose(bool disposing)
+            {
+                _subject?.Dispose();
+
+                base.Dispose(disposing);
+            }
+
             #region MultiSubjectBase
 
             protected override IObserver<TInput> GetObserverCore<TInput>() => (IObserver<TInput>)_subject.CreateObserver();
