@@ -240,7 +240,9 @@ namespace System.Linq.Expressions.Bonsai
         {
             get
             {
+#pragma warning disable IDE0074
                 if (s_numericConstantToString == null)
+#pragma warning restore IDE0074
                 {
                     s_numericConstantToString = new Dictionary<Type, Func<object, string>>
                     {
