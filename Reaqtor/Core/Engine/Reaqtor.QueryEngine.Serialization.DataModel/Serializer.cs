@@ -748,12 +748,7 @@ namespace Reaqtor.QueryEngine
         /// <returns>The expression represented by the slim expression.</returns>
         public override Expression Reduce(ExpressionSlim expression)
         {
-            if (expression == null)
-            {
-                return null;
-            }
-
-            return expression.ToExpression(_expressionPolicy.ExpressionFactory, _expressionPolicy.ReflectionProvider);
+            return expression?.ToExpression(_expressionPolicy.ExpressionFactory, _expressionPolicy.ReflectionProvider);
         }
 
         private sealed class QuoteConverter : DataConverter

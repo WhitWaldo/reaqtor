@@ -367,14 +367,11 @@ namespace Rxcel
 
             dg.CellEndEdit += (o, e) =>
             {
-                if (editing != null)
+                if (editing?.Value is string value)
                 {
-                    if (editing.Value is string value)
-                    {
-                        editingCell.Value = value;
-                        editing.Value = editingCell;
-                        dg.Refresh();
-                    }
+                    editingCell.Value = value;
+                    editing.Value = editingCell;
+                    dg.Refresh();
                 }
             };
 

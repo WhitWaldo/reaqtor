@@ -165,9 +165,9 @@ namespace System.Linq.Expressions
                         }
                     }
                 }
-                else if (newExpressions != null)
+                else
                 {
-                    newExpressions.Add(expr);
+                    newExpressions?.Add(expr);
                 }
             }
 

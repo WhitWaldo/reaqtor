@@ -406,12 +406,7 @@ namespace Reaqtor.QueryEngine
         private Expression LookupForeignFunction(string key)
         {
             var lookup = Options.ForeignFunctionBinder;
-            if (lookup != null)
-            {
-                return lookup(key);
-            }
-
-            return null;
+            return lookup?.Invoke(key);
         }
 
         #endregion

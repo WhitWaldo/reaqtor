@@ -75,13 +75,10 @@ namespace System.Documentation
                 var mem = GetXmlDocNameImpl(member);
 
                 var doc = xml.Element("doc");
-                if (doc != null)
+                var ms = doc?.Element("members");
+                if (ms != null)
                 {
-                    var ms = doc.Element("members");
-                    if (ms != null)
-                    {
-                        res = ms.Elements("member").FirstOrDefault(m => m.Attribute("name").Value == mem);
-                    }
+                    res = ms.Elements("member").FirstOrDefault(m => m.Attribute("name").Value == mem);
                 }
             }
 

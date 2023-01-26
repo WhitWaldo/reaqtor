@@ -69,28 +69,22 @@ namespace Reaqtor.QueryEngine
                     foreach (var sub in _queryEngine._registry.Subscriptions)
                     {
                         var value = sub.Value;
-                        if (value != null)
+                        var instance = value?.Instance;
+                        if (instance != null && value.IsInitialized)
                         {
-                            var instance = value.Instance;
-                            if (instance != null && value.IsInitialized)
-                            {
-                                visitor.Apply(instance);
-                            }
+                            visitor.Apply(instance);
                         }
                     }
 
                     foreach (var sub in _queryEngine._registry.Subjects)
                     {
                         var value = sub.Value;
-                        if (value != null)
+                        var instance = value?.Instance;
+                        if (instance != null && value.IsInitialized)
                         {
-                            var instance = value.Instance;
-                            if (instance != null && value.IsInitialized)
+                            if (instance is IDependencyOperator op)
                             {
-                                if (instance is IDependencyOperator op)
-                                {
-                                    allDependenciesList.AddRange(op.Dependencies);
-                                }
+                                allDependenciesList.AddRange(op.Dependencies);
                             }
                         }
                     }

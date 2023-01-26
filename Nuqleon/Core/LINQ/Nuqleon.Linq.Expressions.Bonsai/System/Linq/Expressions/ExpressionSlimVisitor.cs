@@ -30,12 +30,7 @@ namespace System.Linq.Expressions
         /// <returns>Result of visiting the node.</returns>
         public virtual ExpressionSlim Visit(ExpressionSlim node)
         {
-            if (node != null)
-            {
-                return node.Accept(this);
-            }
-
-            return null;
+            return node?.Accept(this);
         }
 
         /// <summary>

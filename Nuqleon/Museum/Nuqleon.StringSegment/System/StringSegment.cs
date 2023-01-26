@@ -1122,12 +1122,9 @@ namespace System
                 }
                 else
                 {
-                    if (sb != null)
-                    {
-                        // CONSIDER: Don't append character by character but keep track of a range to copy.
+                    // CONSIDER: Don't append character by character but keep track of a range to copy.
 
-                        sb.Append(this[i]);
-                    }
+                    sb?.Append(this[i]);
 
                     i++;
                 }
@@ -1135,10 +1132,7 @@ namespace System
 
             if (i != Length)
             {
-                if (sb != null)
-                {
-                    sb.Append(String, StartIndex + i, Length - i);
-                }
+                sb?.Append(String, StartIndex + i, Length - i);
             }
 
             return sb == null ? this : sb.ToString();

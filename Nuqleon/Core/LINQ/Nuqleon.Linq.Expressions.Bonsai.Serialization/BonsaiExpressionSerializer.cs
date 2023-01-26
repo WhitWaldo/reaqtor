@@ -101,12 +101,7 @@ namespace System.Linq.Expressions.Bonsai.Serialization
         /// <returns>A slim representation of the expression.</returns>
         public virtual ExpressionSlim Lift(Expression expression)
         {
-            if (expression == null)
-            {
-                return null;
-            }
-
-            return expression.ToExpressionSlim(); // NB: Derived class can override to specify a factory.
+            return expression?.ToExpressionSlim(); // NB: Derived class can override to specify a factory.
         }
 
         /// <summary>
@@ -116,12 +111,7 @@ namespace System.Linq.Expressions.Bonsai.Serialization
         /// <returns>The expression represented by the slim expression.</returns>
         public virtual Expression Reduce(ExpressionSlim expression)
         {
-            if (expression == null)
-            {
-                return null;
-            }
-
-            return expression.ToExpression(); // NB: Derived class can override to specify a factory.
+            return expression?.ToExpression(); // NB: Derived class can override to specify a factory.
         }
 
         /// <summary>
