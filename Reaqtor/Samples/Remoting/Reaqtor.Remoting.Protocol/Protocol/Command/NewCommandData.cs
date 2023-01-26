@@ -11,7 +11,7 @@ namespace Reaqtor.Remoting.Protocol
     /// A bundle for data related to <see cref="CommandVerb.New"/> commands.
     /// </summary>
     /// <typeparam name="TExpression">Type used for expression tree representation.</typeparam>
-    public struct NewCommandData<TExpression> : IEquatable<NewCommandData<TExpression>>
+    public readonly struct NewCommandData<TExpression> : IEquatable<NewCommandData<TExpression>>
     {
         private const uint Prime = 0xa5555529; // See CompilationPass.cpp in C# compiler codebase.
 

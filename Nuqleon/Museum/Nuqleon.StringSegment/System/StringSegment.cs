@@ -21,7 +21,7 @@ namespace System
     /// Value representing a segment in a string used to reduce allocations of string copies.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("BD", "1")] // NB: Suppresses code analysis warnings for this file; lots of behavior is a verbatim copy of System.String behavior.
-    public struct StringSegment : IEquatable<StringSegment>, IEnumerable<char>, IComparable, IComparable<StringSegment>
+    public readonly struct StringSegment : IEquatable<StringSegment>, IEnumerable<char>, IComparable, IComparable<StringSegment>
     {
         private const int TrimHead = 0;
         private const int TrimTail = 1;
