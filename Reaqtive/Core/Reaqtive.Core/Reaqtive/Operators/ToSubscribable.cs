@@ -38,7 +38,9 @@ namespace Reaqtive.Operators
 
         private sealed class _ : ContextSwitchOperator<ToSubscribable<TSource>, TSource>
         {
+#pragma warning disable CA2213
             private SingleAssignmentSubscription subscription;
+#pragma warning restore CA2213
 
             public _(ToSubscribable<TSource> parent, IObserver<TSource> observer)
                 : base(parent, observer)
@@ -89,6 +91,17 @@ namespace Reaqtive.Operators
             {
                 base.OnCompleted();
                 subscription.Dispose(); // only dispose the Rx subscription; otherwise, we'd kill the scheduler's work too
+            }
+
+            protected override void OnDispose()
+            {
+                if (subscription != null)
+                {
+                    subscription.Dispose();
+                    subscription = null;
+                }
+
+                base.OnDispose();
             }
 
             /// <summary>
