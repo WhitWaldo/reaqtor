@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable ConvertClosureToMethodGroup
 
 namespace Tests.System.Linq.Expressions.Optimizers
 {

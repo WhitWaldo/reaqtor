@@ -380,7 +380,7 @@ namespace Tests.System.Linq.CompilerServices
         {
             var t = new { a = 42 }.GetType();
 
-            Assert.ThrowsException<InvalidOperationException>(() => t.ToCSharpString());
+            Assert.ThrowsException<InvalidOperationException>(t.ToCSharpString);
 
             var n = t.ToCSharpString(useNamespaceQualifiedNames: true, useCSharpTypeAliases: false, disallowCompilerGeneratedTypes: false);
             Assert.IsTrue(n.StartsWith("<>f__AnonymousType"));

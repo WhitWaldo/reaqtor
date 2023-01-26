@@ -158,7 +158,7 @@ namespace Tests.System.Linq.CompilerServices
             var g = cps.Rewrite(f);
 
             var err = default(Exception);
-            g.Compile()(() => Assert.Fail(), e => err = e);
+            g.Compile()(Assert.Fail, e => err = e);
 
             Assert.AreSame(ex, err);
         }
@@ -174,7 +174,7 @@ namespace Tests.System.Linq.CompilerServices
             var g = (Expression<Action<Action, Action<Exception>>>)cps.Rewrite((LambdaExpression)f);
 
             var err = default(Exception);
-            g.Compile()(() => Assert.Fail(), e => err = e);
+            g.Compile()(Assert.Fail, e => err = e);
 
             Assert.AreSame(ex, err);
         }
@@ -190,7 +190,7 @@ namespace Tests.System.Linq.CompilerServices
             var g = (Expression<Action<Action, Action<Exception>>>)cps.Rewrite(f.Body);
 
             var err = default(Exception);
-            g.Compile()(() => Assert.Fail(), e => err = e);
+            g.Compile()(Assert.Fail, e => err = e);
 
             Assert.AreSame(ex, err);
         }
@@ -306,7 +306,7 @@ namespace Tests.System.Linq.CompilerServices
             var done = default(bool);
             var err = default(Exception);
             h(1, () => done = true, ex => Assert.Fail());
-            h(0, () => Assert.Fail(), ex => err = ex);
+            h(0, Assert.Fail, ex => err = ex);
 
             Assert.IsTrue(done);
             Assert.IsTrue(err is DivideByZeroException);

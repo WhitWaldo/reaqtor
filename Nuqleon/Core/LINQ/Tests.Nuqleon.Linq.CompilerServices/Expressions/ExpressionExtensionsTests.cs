@@ -104,7 +104,7 @@ namespace Tests.System.Linq.CompilerServices
         {
             var f = (Expression<Func<int, int>>)(x => x + 1);
 
-            AssertEx.ThrowsException<UnboundParameterException>(() => f.Body.Funcletize(), ex =>
+            AssertEx.ThrowsException<UnboundParameterException>(f.Body.Funcletize, ex =>
             {
                 Assert.AreSame(f.Body, ex.Expression);
                 Assert.IsTrue(f.Parameters.SequenceEqual(ex.Parameters));
@@ -194,7 +194,7 @@ namespace Tests.System.Linq.CompilerServices
         {
             var f = (Expression<Func<int, int>>)(x => x + 1);
 
-            AssertEx.ThrowsException<UnboundParameterException>(() => f.Body.Evaluate(), ex =>
+            AssertEx.ThrowsException<UnboundParameterException>(f.Body.Evaluate, ex =>
             {
                 Assert.AreSame(f.Body, ex.Expression);
                 Assert.IsTrue(f.Parameters.SequenceEqual(ex.Parameters));
@@ -908,8 +908,8 @@ namespace Tests.System.Linq.CompilerServices
 
             var exp = Expression.New(rec);
 
-            Assert.ThrowsException<InvalidOperationException>(() => exp.ToCSharp());
-            Assert.ThrowsException<InvalidOperationException>(() => exp.ToCSharpString());
+            Assert.ThrowsException<InvalidOperationException>(exp.ToCSharp);
+            Assert.ThrowsException<InvalidOperationException>(exp.ToCSharpString);
             Assert.ThrowsException<InvalidOperationException>(() => exp.ToCSharp(allowCompilerGeneratedNames: false));
             Assert.ThrowsException<InvalidOperationException>(() => exp.ToCSharpString(allowCompilerGeneratedNames: false));
 

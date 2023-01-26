@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.CompilerServices;
 using System.Linq.Expressions;
@@ -15,6 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests.Reaqtor.Shared.Core
 {
     [TestClass]
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public class ExpressionHeapTests
     {
 #pragma warning disable IDE0034 // Simplify 'default' expression (documents the signature)

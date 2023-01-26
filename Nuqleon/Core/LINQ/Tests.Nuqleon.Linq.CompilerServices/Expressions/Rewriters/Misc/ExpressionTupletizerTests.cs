@@ -107,7 +107,7 @@ namespace Tests.System.Linq.CompilerServices
 #else
             var packs = new Func<LambdaExpression, LambdaExpression>[]
             {
-                f => ExpressionTupletizer.Pack(f),
+                ExpressionTupletizer.Pack,
                 f => ExpressionTupletizer.Pack(f.Body, f.Parameters),
             };
 #endif

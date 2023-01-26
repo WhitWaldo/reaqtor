@@ -5,6 +5,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests.Reaqtor.Shared.Core
 {
     [TestClass]
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public class ReadOnlyChainedDictionaryTests
     {
         [TestMethod]

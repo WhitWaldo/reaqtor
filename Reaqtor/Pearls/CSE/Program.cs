@@ -155,7 +155,7 @@ namespace Pearls.Reaqtor.CSE
             var sub = new Subject<int>("xs");
 
             var cout = Observer.Create<int>(
-                x => Console.WriteLine(x),
+                Console.WriteLine,
                 ex => { },
                 () => { }
             );
@@ -207,7 +207,7 @@ namespace Pearls.Reaqtor.CSE
             var sub = new Subject<int>("xs");
 
             var cout = Observer.Create<int>(
-                x => Console.WriteLine(x),
+                Console.WriteLine,
                 ex => { },
                 () => { }
             );

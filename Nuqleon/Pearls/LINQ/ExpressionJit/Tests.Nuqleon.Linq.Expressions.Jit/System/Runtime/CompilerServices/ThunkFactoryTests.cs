@@ -4,16 +4,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable ConvertClosureToMethodGroup
 
 namespace Tests
 {
     [TestClass]
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public class ThunkFactoryTests
     {
         [TestMethod]
