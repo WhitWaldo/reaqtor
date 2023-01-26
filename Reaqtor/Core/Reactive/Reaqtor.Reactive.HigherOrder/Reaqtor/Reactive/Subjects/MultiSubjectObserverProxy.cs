@@ -20,6 +20,13 @@ namespace Reaqtor.Reactive
 
         public MultiSubjectObserverProxy(Uri uri) => _uri = uri;
 
+        protected override void Dispose(bool disposing)
+        {
+            _inputs?.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         #region IOperator
 
         protected override IEnumerable<ISubscription> OnSubscribe() => _inputs;
