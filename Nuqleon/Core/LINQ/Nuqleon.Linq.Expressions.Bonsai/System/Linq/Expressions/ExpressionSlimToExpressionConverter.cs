@@ -102,23 +102,15 @@ namespace System.Linq.Expressions
 
             if (method == null && conversion == null && !left.Type.IsValueType && !right.Type.IsValueType)
             {
-                switch (node.NodeType)
+                res = node.NodeType switch
                 {
-                    case ExpressionType.Equal:
-                        res = _factory.ReferenceEqual(left, right);
-                        break;
-                    case ExpressionType.NotEqual:
-                        res = _factory.ReferenceNotEqual(left, right);
-                        break;
-                }
+                    ExpressionType.Equal => _factory.ReferenceEqual(left, right),
+                    ExpressionType.NotEqual => _factory.ReferenceNotEqual(left, right),
+                    _ => res
+                };
             }
 
-            if (res == null)
-            {
-                res = _factory.MakeBinary(node.NodeType, left, right, node.IsLiftedToNull, method, conversion);
-            }
-
-            return res;
+            return res ?? _factory.MakeBinary(node.NodeType, left, right, node.IsLiftedToNull, method, conversion);
         }
 
         /// <summary>

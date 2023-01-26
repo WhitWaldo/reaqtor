@@ -508,35 +508,26 @@ namespace System.Reflection
             // NB: This method does not check for enum types unlike Type.GetTypeCode,
             //     hence the suffix "Exact" in its name.
 
-            if (s_typeCodes == null)
+            s_typeCodes ??= new Dictionary<SimpleTypeSlim, TypeCode>()
             {
-                s_typeCodes =
-                    new Dictionary<SimpleTypeSlim, TypeCode>()
-                    {
-                        { _bool,     TypeCode.Boolean  },
-                        { _int32,    TypeCode.Int32    },
-                        { _uint32,   TypeCode.UInt32   },
-                        { _int64,    TypeCode.Int64    },
-                        { _uint64,   TypeCode.UInt64   },
-                        { _int16,    TypeCode.Int16    },
-                        { _uint16,   TypeCode.UInt16   },
-                        { _byte,     TypeCode.Byte     },
-                        { _sbyte,    TypeCode.SByte    },
-                        { _single,   TypeCode.Single   },
-                        { _double,   TypeCode.Double   },
-                        { _decimal,  TypeCode.Decimal  },
-                        { _dateTime, TypeCode.DateTime },
-                        { _char,     TypeCode.Char     },
-                        { _string,   TypeCode.String   },
-                    };
-            }
+                {_bool, TypeCode.Boolean},
+                {_int32, TypeCode.Int32},
+                {_uint32, TypeCode.UInt32},
+                {_int64, TypeCode.Int64},
+                {_uint64, TypeCode.UInt64},
+                {_int16, TypeCode.Int16},
+                {_uint16, TypeCode.UInt16},
+                {_byte, TypeCode.Byte},
+                {_sbyte, TypeCode.SByte},
+                {_single, TypeCode.Single},
+                {_double, TypeCode.Double},
+                {_decimal, TypeCode.Decimal},
+                {_dateTime, TypeCode.DateTime},
+                {_char, TypeCode.Char},
+                {_string, TypeCode.String},
+            };
 
-            if (s_typeCodes.TryGetValue(typeSlim, out TypeCode typeCode))
-            {
-                return typeCode;
-            }
-
-            return TypeCode.Object;
+            return s_typeCodes.TryGetValue(typeSlim, out TypeCode typeCode) ? typeCode : TypeCode.Object;
         }
 
         #endregion
