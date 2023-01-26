@@ -1007,15 +1007,14 @@ namespace System
 
                 foreach (var kv in unifier.Map)
                 {
-                    if (kv.Value == null)
+                    if (kv.Value != null)
                     {
-                        if (unbound == null)
-                        {
-                            unbound = new List<string>();
-                        }
-
-                        unbound.Add(kv.Key.Name);
+                        continue;
                     }
+
+                    unbound ??= new List<string>();
+
+                    unbound.Add(kv.Key.Name);
                 }
 
                 if (unbound != null)
@@ -1102,10 +1101,8 @@ namespace System
 
                     if (!base.Equals(x, y))
                     {
-                        if (Error == null)
-                        {
-                            Error = new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Unification failed. Cannot unify {0} with type {1}. The types are not structurally identical.", x, y));
-                        }
+                        Error ??= new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                            "Unification failed. Cannot unify {0} with type {1}. The types are not structurally identical.", x, y));
 
                         return false;
                     }
@@ -1233,10 +1230,8 @@ namespace System
 
                 if (!base.Equals(x, y))
                 {
-                    if (Error == null)
-                    {
-                        Error = new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Unification failed. Cannot unify {0} with type {1}. The types are not structurally identical.", x, y));
-                    }
+                    Error ??= new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                        "Unification failed. Cannot unify {0} with type {1}. The types are not structurally identical.", x, y));
 
                     return false;
                 }
@@ -1246,12 +1241,7 @@ namespace System
 
             protected override bool EqualsGenericTypeDefinition(Type x, Type y)
             {
-                if (_comparer != null)
-                {
-                    return _comparer.Equals(x, y);
-                }
-
-                return base.EqualsGenericTypeDefinition(x, y);
+                return _comparer?.Equals(x, y) ?? base.EqualsGenericTypeDefinition(x, y);
             }
 
             protected override bool EqualsSimple(Type x, Type y)

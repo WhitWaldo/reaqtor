@@ -38,17 +38,7 @@ namespace System.Reflection
         /// <summary>
         /// A default instance of the equality comparer.
         /// </summary>
-        public static StructuralMemberInfoEqualityComparer Default
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new StructuralMemberInfoEqualityComparer();
-                }
-                return _instance;
-            }
-        }
+        public static StructuralMemberInfoEqualityComparer Default => _instance ??= new StructuralMemberInfoEqualityComparer();
 
         /// <summary>
         /// Checks whether two given members are equal.

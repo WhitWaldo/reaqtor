@@ -188,9 +188,9 @@ namespace Reaqtive
                     return;
                 }
 
-                var entry = default(Entry);
                 lock (_gate)
                 {
+                    var entry = default(Entry);
                     if (key == null)
                     {
                         if (_nullGroup == null && !OutputSubscriptionDisposed)
