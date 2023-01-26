@@ -383,7 +383,7 @@ namespace Test.Reaqtive.Operators
 
         private static IObservable<T> Hide<T>(IObservable<T> observable)
         {
-            return Observable.Create<T>(observer => observable.Subscribe(observer));
+            return Observable.Create<T>(observable.Subscribe);
         }
         #endregion
     }

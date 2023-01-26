@@ -372,7 +372,7 @@ namespace Test.Reaqtive.Operators
                 SubscriptionInitializeVisitor.Initialize(d, Scheduler.CreateContext());
             });
 
-            Scheduler.ScheduleAbsolute(Disposed, () => d.Dispose());
+            Scheduler.ScheduleAbsolute(Disposed, d.Dispose);
 
             Scheduler.Start();
 
@@ -753,7 +753,7 @@ namespace Test.Reaqtive.Operators
                 SubscriptionInitializeVisitor.Initialize(d, Scheduler.CreateContext());
             });
 
-            Scheduler.ScheduleAbsolute(Disposed, () => d.Dispose());
+            Scheduler.ScheduleAbsolute(Disposed, d.Dispose);
 
             Scheduler.Start();
 

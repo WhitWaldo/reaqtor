@@ -163,7 +163,7 @@ namespace Test.Reaqtive.Operators
             var observer = new OnNextThrowsObserver<long>();
             var sub = xs.Subscribe(observer, Scheduler.CreateContext());
 
-            ReactiveAssert.Throws<InvalidOperationException>(() => Scheduler.Start());
+            ReactiveAssert.Throws<InvalidOperationException>(Scheduler.Start);
         }
 
         private sealed class OnNextThrowsObserver<T> : IObserver<T>
@@ -182,7 +182,7 @@ namespace Test.Reaqtive.Operators
             var observer = new OnCompletedThrowsObserver<long>();
             var sub = xs.Subscribe(observer, Scheduler.CreateContext());
 
-            ReactiveAssert.Throws<InvalidOperationException>(() => Scheduler.Start());
+            ReactiveAssert.Throws<InvalidOperationException>(Scheduler.Start);
         }
 
         private sealed class OnCompletedThrowsObserver<T> : IObserver<T>
@@ -583,12 +583,12 @@ namespace Test.Reaqtive.Operators
             // Create new subscription allow the timer to fire twice.
             var res1 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(100, () => sub = Subscribable.Timer(TimeSpan.Zero, TimeSpan.FromTicks(50)).Apply(Scheduler, checkpoints).Subscribe(res1, context));
-            Scheduler.ScheduleAbsolute(155, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(155, sub.Dispose);
 
             // Create new subscription and load the state.
             var res2 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(200, () => sub = Subscribable.Timer(TimeSpan.Zero, TimeSpan.FromTicks(50)).Subscribe(res2, context, state));
-            Scheduler.ScheduleAbsolute(255, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(255, sub.Dispose);
 
             Scheduler.Start();
 
@@ -656,12 +656,12 @@ namespace Test.Reaqtive.Operators
             // Create new subscription allow the timer to fire twice.
             var res1 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(100, () => { firstFire = Scheduler.Now; sub = Subscribable.Timer(firstFire, TimeSpan.MaxValue).Apply(Scheduler, checkpoints).Subscribe(res1, context); });
-            Scheduler.ScheduleAbsolute(155, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(155, sub.Dispose);
 
             // Create new subscription and load the state.
             var res2 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(200, () => sub = Subscribable.Timer(firstFire, TimeSpan.MaxValue).Subscribe(res2, context, state));
-            Scheduler.ScheduleAbsolute(255, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(255, sub.Dispose);
 
             Scheduler.Start();
 
@@ -688,12 +688,12 @@ namespace Test.Reaqtive.Operators
             // Create new subscription allow the timer to fire twice.
             var res1 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(100, () => { sub = Subscribable.Timer(TimeSpan.MinValue).Apply(Scheduler, checkpoints).Subscribe(res1, context); });
-            Scheduler.ScheduleAbsolute(155, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(155, sub.Dispose);
 
             // Create new subscription and load the state.
             var res2 = Scheduler.CreateObserver<long>();
             Scheduler.ScheduleAbsolute(200, () => sub = Subscribable.Timer(TimeSpan.MinValue).Subscribe(res2, context, state));
-            Scheduler.ScheduleAbsolute(255, () => sub.Dispose());
+            Scheduler.ScheduleAbsolute(255, sub.Dispose);
 
             Scheduler.Start();
 

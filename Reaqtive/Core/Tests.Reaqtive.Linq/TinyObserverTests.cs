@@ -32,7 +32,7 @@ namespace Test.Reaqtive
         public void TinyObserver_OnCompletedThrows()
         {
             var o = new O();
-            Assert.ThrowsException<InvalidOperationException>(() => o.OnCompleted());
+            Assert.ThrowsException<InvalidOperationException>(o.OnCompleted);
         }
 
         private sealed class O : TinyObserver<int>
