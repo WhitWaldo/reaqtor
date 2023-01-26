@@ -245,6 +245,17 @@ namespace Reaqtor.QueryEngine.Mocks
                 {
                     _disposable?.Dispose();
                 }
+
+                protected override void Dispose(bool disposing)
+                {
+                    if (_disposable != null)
+                    {
+                        _disposable.Dispose();
+                        _disposable = null;
+                    }
+
+                    base.Dispose(disposing);
+                }
             }
         }
 
@@ -282,22 +293,12 @@ namespace Reaqtor.QueryEngine.Mocks
                 {
                     lock (_subjectGate)
                     {
-                        if (_subject == null)
-                        {
-                            _subject = new Subject<T>();
-                        }
+                        _subject ??= new Subject<T>();
                     }
                 }
 
                 var result = (Subject<T>)_subject;
-                if (!contextSwitched)
-                {
-                    return result;
-                }
-                else
-                {
-                    return GetContextSwitched(result);
-                }
+                return !contextSwitched ? result : GetContextSwitched(result);
             }
 
             private Subject<T> GetContextSwitched<T>(Subject<T> subject)
