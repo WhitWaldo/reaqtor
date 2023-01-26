@@ -189,8 +189,8 @@ namespace Reaqtor.Remoting.Deployable
 
                 return _sourceFeed.Subscribe(
                     s => observer.OnNext(serializer.Deserialize<TResult>(s)),
-                    ex => observer.OnError(ex),
-                    () => observer.OnCompleted());
+                    observer.OnError,
+                    observer.OnCompleted);
             }
         }
 

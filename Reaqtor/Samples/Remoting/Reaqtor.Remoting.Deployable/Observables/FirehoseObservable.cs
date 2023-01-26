@@ -58,8 +58,7 @@ namespace Reaqtor.Remoting.Deployable
                 topicObserver.Start();
 
                 return
-                    Disposable.Create(
-                        () => topicObserver.Stop());
+                    Disposable.Create(topicObserver.Stop);
             }
             catch (Exception ex)
             {
