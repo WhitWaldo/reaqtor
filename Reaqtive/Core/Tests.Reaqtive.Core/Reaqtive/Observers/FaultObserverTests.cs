@@ -26,7 +26,7 @@ namespace Test.Reaqtive
 
             Assert.ThrowsException<ObjectDisposedException>(() => d.OnNext(42));
             Assert.ThrowsException<ObjectDisposedException>(() => d.OnError(new Exception()));
-            Assert.ThrowsException<ObjectDisposedException>(() => d.OnCompleted());
+            Assert.ThrowsException<ObjectDisposedException>(d.OnCompleted);
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Test.Reaqtive
 
             AssertEx.ThrowsException<Exception>(() => d.OnNext(42), err => Assert.AreSame(ex, err));
             AssertEx.ThrowsException<Exception>(() => d.OnError(new Exception()), err => Assert.AreSame(ex, err));
-            AssertEx.ThrowsException<Exception>(() => d.OnCompleted(), err => Assert.AreSame(ex, err));
+            AssertEx.ThrowsException<Exception>(d.OnCompleted, err => Assert.AreSame(ex, err));
         }
     }
 }

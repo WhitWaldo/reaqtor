@@ -123,9 +123,9 @@ namespace Test.Reaqtive
         {
             var cd = new CountdownEvent(3);
 
-            var o1 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, () => { Assert.Fail(); });
-            var o2 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, () => { Assert.Fail(); });
-            var o3 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, () => { Assert.Fail(); });
+            var o1 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, Assert.Fail);
+            var o2 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, Assert.Fail);
+            var o3 = Observer.Create<int>(x => { Assert.Fail(); }, _ => { cd.Signal(); }, Assert.Fail);
 
             var lo = new ListObserver<int>(o1, o2, o3);
 

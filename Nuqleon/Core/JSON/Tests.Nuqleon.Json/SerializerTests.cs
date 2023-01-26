@@ -161,7 +161,7 @@ namespace Tests.Nuqleon.Json
 
                 var des = ser.Deserialize(json);
                 Assert.AreEqual(o.GetType(), des.GetType());
-                var results = ((IEnumerable)des).Cast<string>().Select(s => int.Parse(s)); // By design - JSON numbers aren't roundtrippable to an exact type
+                var results = ((IEnumerable)des).Cast<string>().Select(int.Parse); // By design - JSON numbers aren't roundtrippable to an exact type
                 Assert.IsTrue(results.SequenceEqual(original));
             }
         }

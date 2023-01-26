@@ -38,17 +38,17 @@ namespace Test.Reaqtive
             o1.OnNext(42);
 
             var s1 = new List<int>();
-            var d1 = s.Subscribe(x => s1.Add(x));
+            var d1 = s.Subscribe(s1.Add);
 
             o1.OnNext(43);
 
             var s2 = new List<int>();
-            var d2 = s.Subscribe(x => s2.Add(x));
+            var d2 = s.Subscribe(s2.Add);
 
             o1.OnNext(44);
 
             var s3 = new List<int>();
-            var d3 = s.Subscribe(x => s3.Add(x));
+            var d3 = s.Subscribe(s3.Add);
 
             o1.OnNext(45);
 
@@ -61,7 +61,7 @@ namespace Test.Reaqtive
             o1.OnNext(47);
 
             var s4 = new List<int>();
-            var d4 = s.Subscribe(x => s4.Add(x));
+            var d4 = s.Subscribe(s4.Add);
 
             o1.OnNext(48);
 
@@ -71,7 +71,7 @@ namespace Test.Reaqtive
             o1.OnNext(49);
 
             var s5 = new List<int>();
-            var d5 = s.Subscribe(x => s5.Add(x));
+            var d5 = s.Subscribe(s5.Add);
 
             o1.OnNext(50);
 
@@ -113,7 +113,7 @@ namespace Test.Reaqtive
 
                 Assert.ThrowsException<ObjectDisposedException>(() => s.OnNext(42));
                 Assert.ThrowsException<ObjectDisposedException>(() => s.OnError(new Exception()));
-                Assert.ThrowsException<ObjectDisposedException>(() => s.OnCompleted());
+                Assert.ThrowsException<ObjectDisposedException>(s.OnCompleted);
 
                 d1.Dispose();
 

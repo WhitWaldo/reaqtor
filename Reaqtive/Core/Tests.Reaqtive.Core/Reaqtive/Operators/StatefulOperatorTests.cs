@@ -19,7 +19,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulOperator_Basics()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), Assert.Fail);
 
             {
                 var mo = new MyOperator(o);
@@ -69,7 +69,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulOperator_State()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), onCompleted: Assert.Fail);
 
             var state = new MockOperatorStateContainer();
             var writerFactory = state.CreateWriter();
@@ -142,7 +142,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulOperator_Versioning_NotSupportedByDefault()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), Assert.Fail);
 
             var state = new MockOperatorStateContainer();
             var writerFactory = state.CreateWriter();

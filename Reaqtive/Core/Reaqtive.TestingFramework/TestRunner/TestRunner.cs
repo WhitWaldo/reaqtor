@@ -20,7 +20,7 @@ namespace Reaqtive.TestingFramework.TestRunner
             _instance = instance;
             TestMethod = method;
             _expectedException = new Lazy<ExpectedExceptionAttribute>(
-                () => method.GetCustomAttribute<ExpectedExceptionAttribute>());
+                method.GetCustomAttribute<ExpectedExceptionAttribute>);
         }
 
         public MethodInfo TestMethod { get; private set; }

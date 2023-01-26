@@ -46,7 +46,7 @@ namespace Test.Reaqtive
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(42), ex => ex.Message.Contains("terminated"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("terminated"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("terminated"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("terminated"));
 
             Assert.AreEqual(42, res);
         }
@@ -68,10 +68,7 @@ namespace Test.Reaqtive
                     Assert.IsTrue(ex.Message == "foo");
                     res *= -1;
                 },
-                () =>
-                {
-                    Assert.Fail();
-                }
+                Assert.Fail
             );
 
             sub.Subscribe(o);
@@ -81,7 +78,7 @@ namespace Test.Reaqtive
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(42), ex => ex.Message.Contains("terminated"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("terminated"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("terminated"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("terminated"));
 
             Assert.AreEqual(42, res);
         }
@@ -117,7 +114,7 @@ namespace Test.Reaqtive
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(43), ex => ex.Message.Contains("processing"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("processing"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("processing"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("processing"));
 
             e.Set();
             t.Wait();
@@ -157,14 +154,14 @@ namespace Test.Reaqtive
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(43), ex => ex.Message.Contains("processing"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("processing"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("processing"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("processing"));
 
             e.Set();
             t.Wait();
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(42), ex => ex.Message.Contains("terminated"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("terminated"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("terminated"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("terminated"));
         }
 
         [TestMethod]
@@ -193,19 +190,19 @@ namespace Test.Reaqtive
 
             sub.Subscribe(o);
 
-            var t = Task.Run(() => sub.Observer.OnCompleted());
+            var t = Task.Run(sub.Observer.OnCompleted);
             s.WaitOne();
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(43), ex => ex.Message.Contains("processing"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("processing"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("processing"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("processing"));
 
             e.Set();
             t.Wait();
 
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnNext(42), ex => ex.Message.Contains("terminated"));
             AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnError(new Exception()), ex => ex.Message.Contains("terminated"));
-            AssertEx.ThrowsException<InvalidOperationException>(() => sub.Observer.OnCompleted(), ex => ex.Message.Contains("terminated"));
+            AssertEx.ThrowsException<InvalidOperationException>(sub.Observer.OnCompleted, ex => ex.Message.Contains("terminated"));
         }
 
         private sealed class MySubscribable : SubscribableBase<int>

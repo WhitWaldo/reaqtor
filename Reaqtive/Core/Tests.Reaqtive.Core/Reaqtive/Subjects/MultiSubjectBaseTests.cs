@@ -200,7 +200,7 @@ namespace Test.Reaqtive
         {
             var s = new MultiSubject<int>();
 
-            Assert.ThrowsException<NotImplementedException>(() => s.CreateObserver());
+            Assert.ThrowsException<NotImplementedException>(s.CreateObserver);
             Assert.ThrowsException<NotImplementedException>(() => s.Subscribe(Observer.Nop<int>()));
             Assert.ThrowsException<NotImplementedException>(() => ((IObservable<int>)s).Subscribe(Observer.Nop<int>()));
 

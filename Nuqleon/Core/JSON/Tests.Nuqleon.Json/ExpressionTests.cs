@@ -462,7 +462,7 @@ namespace Tests
             foreach (var arr in new[] { arr1, arr2, arr3 })
             {
                 Assert.IsTrue(arr.ElementCount == n);
-                Assert.IsTrue(exprs.SequenceEqual(Enumerable.Range(0, n).Select(i => arr.GetElement(i))));
+                Assert.IsTrue(exprs.SequenceEqual(Enumerable.Range(0, n).Select(arr.GetElement)));
 
                 Assert.IsTrue(arr.Elements.Count == n);
                 Assert.IsTrue(exprs.SequenceEqual(arr.Elements));

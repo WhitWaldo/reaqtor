@@ -30,7 +30,7 @@ namespace Tests.System.Runtime.Remoting.Tasks
         public void Reply_OnCompleted()
         {
             var reply = new Reply<int>(new TaskCompletionSource<int>());
-            Assert.ThrowsException<InvalidOperationException>(() => reply.OnCompleted());
+            Assert.ThrowsException<InvalidOperationException>(reply.OnCompleted);
         }
     }
 }

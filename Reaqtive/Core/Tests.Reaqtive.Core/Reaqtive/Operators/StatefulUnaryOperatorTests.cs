@@ -19,7 +19,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulUnaryOperator_Basics()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), Assert.Fail);
 
             {
                 var mo = new MyOperator(o);
@@ -69,7 +69,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulUnaryOperator_State()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), onCompleted: Assert.Fail);
 
             var state = new MockOperatorStateContainer();
             var writerFactory = state.CreateWriter();
@@ -142,7 +142,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulUnaryOperator_NoSubscriptionsByDefault()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), Assert.Fail);
             var mo = new MyOperator(o) { State = 42 };
 
             // Seems a bit inconsistent that the subscription has zero inputs
@@ -154,7 +154,7 @@ namespace Test.Reaqtive
         [TestMethod]
         public void StatefulUnaryOperator_Versioning_NotSupportedByDefault()
         {
-            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), () => Assert.Fail());
+            var o = Observer.Create<int>(_ => { }, _ => Assert.Fail(), Assert.Fail);
 
             var state = new MockOperatorStateContainer();
             var writerFactory = state.CreateWriter();

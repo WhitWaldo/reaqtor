@@ -157,7 +157,7 @@ namespace Reaqtive.TestingFramework
         /// </summary>
         public void Continue()
         {
-            _tasks.ForEach(t => Physical.Continue(t));
+            _tasks.ForEach(Physical.Continue);
             _children.ForEach(s => s.Continue());
         }
 
@@ -167,7 +167,7 @@ namespace Reaqtive.TestingFramework
         /// </summary>
         public void RecalculatePriority()
         {
-            _tasks.ForEach(t => Physical.RecalculatePriority(t));
+            _tasks.ForEach(Physical.RecalculatePriority);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Reaqtive.TestingFramework
             {
                 _children.ForEach(s => s.Dispose());
                 _children.Clear();
-                _tasks.ForEach(t => Physical.Cancel(t));
+                _tasks.ForEach(Physical.Cancel);
                 _tasks.Clear();
 
                 _parent?._children.Remove(this);

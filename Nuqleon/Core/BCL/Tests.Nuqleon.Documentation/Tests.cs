@@ -59,7 +59,7 @@ namespace Tests
 
             var res = from t in GetTypes()
                       from m in t.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                      where !forbiddenPrefixes.Any(p => m.Name.StartsWith(p))
+                      where !forbiddenPrefixes.Any(m.Name.StartsWith)
                       where !(typeof(Delegate).IsAssignableFrom(m.DeclaringType) && m.Name.Contains("Invoke"))
                       select m;
 
