@@ -30,7 +30,6 @@ using Microsoft.CSharp.RuntimeBinder;
 namespace Tests
 {
     [TestClass]
-    [SuppressMessage("ReSharper", "ConvertClosureToMethodGroup")]
     public class Tests
     {
         [TestMethod]
@@ -143,7 +142,7 @@ namespace Tests
         {
             var pts = typeof(int).Assembly.GetTypes().Where(t => t.IsPublic && t != typeof(void) && !t.IsGenericTypeDefinition).ToArray();
 
-            var ps = pts.Select(pt => Expression.Parameter(pt)).ToArray();
+            var ps = pts.Select(Expression.Parameter).ToArray();
 
             var b = Expression.Block(ps, Expression.Empty());
 

@@ -30,7 +30,6 @@ using Json = Nuqleon.Json.Expressions;
 namespace Tests
 {
     [TestClass]
-    [SuppressMessage("ReSharper", "ConvertClosureToMethodGroup")]
     public partial class Tests
     {
         #region Constant
@@ -922,7 +921,7 @@ namespace Tests
         public void Bonsai_Lambda_LargeFunc()
         {
             var ps = Enumerable.Range(0, 15).Select(i => Expression.Parameter(typeof(int))).ToArray();
-            var sum = ps.Cast<Expression>().Aggregate((a, b) => Expression.Add(a, b));
+            var sum = ps.Cast<Expression>().Aggregate(Expression.Add);
             var l = Expression.Lambda<Func<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>>(sum, ps);
 
             var r = Roundtrip(l) as LambdaExpression;
@@ -1119,7 +1118,7 @@ namespace Tests
         public void Bonsai_Lambda_DynamicDelegateType()
         {
             var ps = Enumerable.Range(0, 20).Select(i => Expression.Parameter(typeof(int))).ToArray();
-            var sum = ps.Cast<Expression>().Aggregate((a, b) => Expression.Add(a, b));
+            var sum = ps.Cast<Expression>().Aggregate(Expression.Add);
             var l = Expression.Lambda(sum, ps);
 
             var r = Roundtrip(l) as LambdaExpression;

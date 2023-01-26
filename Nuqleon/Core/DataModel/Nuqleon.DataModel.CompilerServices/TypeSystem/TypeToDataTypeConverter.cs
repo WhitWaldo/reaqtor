@@ -51,7 +51,7 @@ namespace Nuqleon.DataModel.TypeSystem
 
         public static TypeToDataTypeConverter Create(bool allowCycles) => allowCycles ? s_allowCycles : s_noCycles;
 
-        public DataType Convert(Type type) => _convertCache.GetValue(type, t => ConvertCore(t));
+        public DataType Convert(Type type) => _convertCache.GetValue(type, ConvertCore);
 
         private DataType ConvertCore(Type type)
         {
@@ -64,7 +64,7 @@ namespace Nuqleon.DataModel.TypeSystem
 
         public bool TryConvert(Type type, out DataType result)
         {
-            result = _tryConvertCache.GetValue(type, t => TryConvertCore(t));
+            result = _tryConvertCache.GetValue(type, TryConvertCore);
             return result != null;
         }
 
@@ -79,7 +79,7 @@ namespace Nuqleon.DataModel.TypeSystem
 
         public DataType ConvertKnownType(Type type)
         {
-            return _convertKnownTypeCache.GetValue(type, t => ConvertKnownTypeCore(t));
+            return _convertKnownTypeCache.GetValue(type, ConvertKnownTypeCore);
         }
 
         private DataType ConvertKnownTypeCore(Type type)

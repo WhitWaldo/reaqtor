@@ -182,7 +182,7 @@ namespace Rxcel
                 throw new InvalidOperationException("Cycle detected.");
             }
 
-            var res = Expression.Call(mtd, cells.Select(c => Expression.Constant(c)).Concat(new Expression[] { f }).ToArray());
+            var res = Expression.Call(mtd, cells.Select(Expression.Constant).Concat(new Expression[] { f }).ToArray());
 
             var src = Expression.Lambda<Func<IObservable<double?>>>(res).Compile()();
 
