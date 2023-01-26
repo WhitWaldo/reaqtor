@@ -11,6 +11,10 @@
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Reaqtor.QueryEngine\Reaqtor.QueryEngine.csproj" />
     <ProjectReference Include="..\..\Testing\Reaqtor.TestingFramework.Hosted\Reaqtor.TestingFramework.Hosted.csproj" />

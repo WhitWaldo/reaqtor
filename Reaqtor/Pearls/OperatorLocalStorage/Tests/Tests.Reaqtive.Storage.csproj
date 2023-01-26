@@ -8,5 +8,9 @@
     <ProjectReference Include="..\Library\Reaqtive.Storage.csproj" />
     <ProjectReference Include="..\Utilities\Reaqtive.Storage.Utils.csproj" />
   </ItemGroup>
+  
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
 
 </Project>
