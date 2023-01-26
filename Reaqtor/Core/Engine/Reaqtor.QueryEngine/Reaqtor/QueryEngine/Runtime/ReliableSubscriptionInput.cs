@@ -48,7 +48,9 @@ namespace Reaqtor.QueryEngine
 
         private sealed class _ : StatefulOperator<ReliableSubscriptionInput<T>, T>, IReliableObserver<T>
         {
+#pragma warning disable CA2213
             private IReliableSubscription _subscription;
+#pragma warning restore CA2213
 
             public _(ReliableSubscriptionInput<T> parent, IObserver<T> observer)
                 : base(parent, observer)
@@ -135,12 +137,28 @@ namespace Reaqtor.QueryEngine
             {
                 _subscription.Start(CheckpointWatermark + 1);
             }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                base.OnDispose();
+            }
         }
 
         // TODO: Reduce duplicated code.
         private sealed class _ContextSwitched : ContextSwitchOperator<ReliableSubscriptionInput<T>, T>, IReliableObserver<T>
         {
+#pragma warning disable CA2213
             private IReliableSubscription _subscription;
+#pragma warning restore CA2213
             private IOperatorContext _context;
 
             public _ContextSwitched(ReliableSubscriptionInput<T> parent, IObserver<T> observer)
@@ -240,6 +258,20 @@ namespace Reaqtor.QueryEngine
                 _subscription.Start(CheckpointWatermark + 1);
 
                 _context?.TraceSource.ReliableSubscriptionInput_OnStart(_context.InstanceId, CheckpointWatermark + 1);
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                base.OnDispose();
             }
         }
     }
