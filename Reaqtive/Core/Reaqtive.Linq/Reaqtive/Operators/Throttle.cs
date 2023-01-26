@@ -33,7 +33,9 @@ namespace Reaqtive.Operators
 
         private sealed class _ : HigherOrderInputStatefulOperator<Throttle<TSource, TThrottle>, TSource>, IObserver<TSource>
         {
+#pragma warning disable CA2213
             private SerialSubscription _cancelable;
+#pragma warning restore CA2213
 
             private TSource _value;
             private bool _hasValue;
@@ -154,6 +156,20 @@ namespace Reaqtive.Operators
                         Dispose();
                     }
                 }
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_cancelable != null)
+                {
+                    _cancelable.Dispose();
+                    _cancelable = null;
+                }
+
+                base.OnDispose();
             }
 
             protected override void SaveStateCore(IOperatorStateWriter writer)

@@ -34,7 +34,9 @@ namespace Reaqtive.Operators
             /// </summary>
             private readonly object _syncLock = new();
 
+#pragma warning disable CA2213
             private ISubscription _otherSubscription;
+#pragma warning restore CA2213
             private volatile bool _gateOpened;
 
             public _(TakeUntil<TSource, TOther> parent, IObserver<TSource> observer)
@@ -92,6 +94,20 @@ namespace Reaqtive.Operators
                 base.SaveStateCore(writer);
 
                 writer.Write(_gateOpened);
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_otherSubscription != null)
+                {
+                    _otherSubscription.Dispose();
+                    _otherSubscription = null;
+                }
+
+                base.OnDispose();
             }
 
             public bool GateOpened

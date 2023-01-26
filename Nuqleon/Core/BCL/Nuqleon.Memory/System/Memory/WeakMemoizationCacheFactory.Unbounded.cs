@@ -173,6 +173,19 @@ namespace System.Memory
                     //
                     _cache = new WeakCacheDictionary<T, object>();
                 }
+
+                /// <summary>
+                /// Disposes the cache.
+                /// </summary>
+                /// <param name="disposing">Indicates whether the dispose operation is triggered by a call to Dispose, or the finalizer.</param>
+                protected override void Dispose(bool disposing)
+                {
+#if DEBUG
+                    _isNew?.Dispose();
+#endif
+
+                    base.Dispose(disposing);
+                }
             }
 
             /// <summary>
@@ -266,6 +279,19 @@ namespace System.Memory
                     // Unfortunately, CWT does not expose its Clear method publicly.
                     //
                     _cache = new WeakCacheDictionary<T, IValueOrError<R>>();
+                }
+
+                /// <summary>
+                /// Disposes the cache.
+                /// </summary>
+                /// <param name="disposing">Indicates whether the dispose operation is triggered by a call to Dispose, or the finalizer.</param>
+                protected override void Dispose(bool disposing)
+                {
+#if DEBUG
+                    _isNew?.Dispose();
+#endif
+
+                    base.Dispose(disposing);
                 }
             }
         }

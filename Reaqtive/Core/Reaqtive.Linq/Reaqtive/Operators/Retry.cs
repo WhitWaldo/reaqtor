@@ -42,7 +42,9 @@ namespace Reaqtive.Operators
 
         private sealed class _ : StatefulUnaryOperator<Retry<TResult>, TResult>, IObserver<TResult>
         {
+#pragma warning disable CA2213
             private readonly SerialSubscription _subscription = new();
+#pragma warning restore CA2213
             private int _retryCount;
             private IOperatorContext _context;
 
@@ -132,11 +134,23 @@ namespace Reaqtive.Operators
 
                 _context = context;
             }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                _subscription?.Dispose();
+
+                base.OnDispose();
+            }
         }
 
         private sealed class i : StatefulUnaryOperator<Retry<TResult>, TResult>, IObserver<TResult>
         {
+#pragma warning disable CA2213
             private readonly SerialSubscription _subscription = new();
+#pragma warning restore CA2213
             private IOperatorContext _context;
 
             public i(Retry<TResult> parent, IObserver<TResult> observer)
@@ -202,6 +216,16 @@ namespace Reaqtive.Operators
                 {
                     _subscription.Dispose();
                 }
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                _subscription?.Dispose();
+
+                base.OnDispose();
             }
         }
     }

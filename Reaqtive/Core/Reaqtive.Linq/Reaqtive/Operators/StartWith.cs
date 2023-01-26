@@ -30,7 +30,9 @@ namespace Reaqtive.Operators
         private sealed class _ : StatefulUnaryOperator<StartWith<T>, T>, IObserver<T>
         {
             private volatile int _valuesIndex;
+#pragma warning disable CA2213
             private SingleAssignmentSubscription _subscription;
+#pragma warning restore CA2213
             private IOperatorContext _context;
 
             public _(StartWith<T> parent, IObserver<T> observer)
@@ -163,6 +165,20 @@ namespace Reaqtive.Operators
                         DoSubscribeTask();
                     }
                 });
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                base.OnDispose();
             }
 
             private void DoSubscribeTask(bool recovery = false)

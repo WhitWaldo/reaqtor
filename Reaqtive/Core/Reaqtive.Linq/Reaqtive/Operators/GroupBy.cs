@@ -24,7 +24,9 @@ namespace Reaqtive
             where TParam : GroupByBase<TSource, TKey, TElement>
         {
             private bool _recovered;
+#pragma warning disable CA2213
             private RefCountSubscription _subscription;
+#pragma warning restore CA2213
 
             public SinkBase(TParam parent, IObserver<IGroupedSubscribable<TKey, TElement>> observer)
                 : base(parent, observer)
@@ -77,6 +79,20 @@ namespace Reaqtive
             {
                 var result = base.CreateInner(args, out innerStreamUri);
                 return new GroupedMultiSubject<TKey, TElement>(result, args);
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                base.OnDispose();
             }
         }
 

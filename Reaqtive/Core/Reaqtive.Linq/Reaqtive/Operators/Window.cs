@@ -23,7 +23,9 @@ namespace Reaqtive.Operators
         protected abstract class Sink<TParam> : HigherOrderOutputStatefulOperator<TParam, TSource>
             where TParam : Window<TSource>
         {
+#pragma warning disable CA2213
             private RefCountSubscription _subscription;
+#pragma warning restore CA2213
 
             public Sink(TParam parent, IObserver<ISubscribable<TSource>> observer)
                 : base(parent, observer)
@@ -74,6 +76,20 @@ namespace Reaqtive.Operators
             protected override void ReleaseCore()
             {
                 _subscription.Dispose();
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                base.OnDispose();
             }
         }
 

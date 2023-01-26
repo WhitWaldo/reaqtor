@@ -24,8 +24,10 @@ namespace Reaqtive.Operators
         private sealed class _ : HigherOrderInputStatefulOperator<Switch<TSource>, TSource>, IObserver<ISubscribable<TSource>>
         {
             private object _lock;
+#pragma warning disable CA2213
             private ISubscription _subscription;
             private SerialSubscription _innerSubscription;
+#pragma warning restore CA2213
             private ulong _latest;
             private bool _isStopped;
             private bool _hasLatest;
@@ -156,6 +158,26 @@ namespace Reaqtive.Operators
                         Dispose();
                     }
                 }
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_subscription != null)
+                {
+                    _subscription.Dispose();
+                    _subscription = null;
+                }
+
+                if (_innerSubscription != null)
+                {
+                    _innerSubscription.Dispose();
+                    _innerSubscription = null;
+                }
+
+                base.OnDispose();
             }
 
             private sealed class i : IObserver<TSource>

@@ -36,8 +36,10 @@ namespace Reaqtive.Operators
 
             private readonly object _lock = new();
             private bool _isStopped;
+#pragma warning disable CA2213
             private ISubscription _sourceSubscription;
             private CompositeSubscription _innerSubscriptions;
+#pragma warning restore CA2213
             private IOperatorContext _context;
 
             public _(SelectMany<TSource, TCollection, TResult> parent, IObserver<TResult> observer)
@@ -188,6 +190,25 @@ namespace Reaqtive.Operators
 #pragma warning restore IDE0079
                     }
                 }
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_sourceSubscription != null)
+                {
+                    _sourceSubscription.Dispose();
+                    _sourceSubscription = null;
+                }
+                if (_innerSubscriptions != null)
+                {
+                    _innerSubscriptions.Dispose();
+                    _innerSubscriptions = null;
+                }
+
+                base.OnDispose();
             }
 
             private sealed class Observer : StatefulObserver<TCollection>

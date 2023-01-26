@@ -32,7 +32,9 @@ namespace Reaqtive.Operators
         private sealed class _ : StatefulOperator<SkipUntil<TSource, TOther>, TSource>, IObserver<TSource>
         {
             private OtherObserver _otherObserver;
+#pragma warning disable CA2213
             private SingleAssignmentSubscription _firstSubscription;
+#pragma warning restore CA2213
 
             public _(SkipUntil<TSource, TOther> parent, IObserver<TSource> observer)
                 : base(parent, observer)
@@ -97,6 +99,20 @@ namespace Reaqtive.Operators
                 {
                     _otherObserver.MarkSignaled();
                 }
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_firstSubscription != null)
+                {
+                    _firstSubscription.Dispose();
+                    _firstSubscription = null;
+                }
+
+                base.OnDispose();
             }
 
             /// <summary>

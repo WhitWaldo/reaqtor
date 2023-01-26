@@ -42,7 +42,9 @@ namespace Reaqtive.Operators
             /// </summary>
             private bool _atSourceEnd;
 
+#pragma warning disable CA2213
             private ISubscription _sourceSubscription;
+#pragma warning restore CA2213
 
             public _(Sample<TSource, TSample> parent, IObserver<TSource> observer)
                 : base(parent, observer)
@@ -86,6 +88,20 @@ namespace Reaqtive.Operators
                 var samplerSubscription = Params._sampler.Subscribe(new SamplerObserver(this));
 
                 return new[] { _sourceSubscription, samplerSubscription };
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                if (_sourceSubscription != null)
+                {
+                    _sourceSubscription.Dispose();
+                    _sourceSubscription = null;
+                }
+
+                base.OnDispose();
             }
 
             private void OnSample()

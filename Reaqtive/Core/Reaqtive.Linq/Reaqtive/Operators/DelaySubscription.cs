@@ -40,7 +40,9 @@ namespace Reaqtive.Operators
 
         private abstract class _ : StatefulUnaryOperator<DelaySubscription<T>, T>, IObserver<T>
         {
+#pragma warning disable CA2213
             private readonly SingleAssignmentSubscription _subscription = new();
+#pragma warning restore CA2213
             private IOperatorContext _context;
             private bool _subscribed;
 
@@ -152,6 +154,16 @@ namespace Reaqtive.Operators
             public void OnNext(T value)
             {
                 Output.OnNext(value);
+            }
+
+            /// <summary>
+            /// Called when the subscription is disposed.
+            /// </summary>
+            protected override void OnDispose()
+            {
+                _subscription?.Dispose();
+
+                base.OnDispose();
             }
         }
 
