@@ -80,20 +80,6 @@ namespace Reaqtive
                 var result = base.CreateInner(args, out innerStreamUri);
                 return new GroupedMultiSubject<TKey, TElement>(result, args);
             }
-
-            /// <summary>
-            /// Called when the subscription is disposed.
-            /// </summary>
-            protected override void OnDispose()
-            {
-                if (_subscription != null)
-                {
-                    _subscription.Dispose();
-                    _subscription = null;
-                }
-
-                base.OnDispose();
-            }
         }
 
         protected abstract class Sink<TParam> : SinkBase<TParam>
