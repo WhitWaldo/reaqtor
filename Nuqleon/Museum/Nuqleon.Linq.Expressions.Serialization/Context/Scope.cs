@@ -361,7 +361,9 @@ namespace Nuqleon.Linq.Expressions.Serialization
             _parameters = new List<ParameterExpression>();
             _mapping = new Dictionary<string, ParameterExpression>();
 
+#pragma warning disable IDE0220
             foreach (Json.ObjectExpression p in ((Json.ArrayExpression)json).Elements)
+#pragma warning restore IDE0220
             {
                 //
                 // Note: keep in sync with SerializationFrame::ToJson code.
