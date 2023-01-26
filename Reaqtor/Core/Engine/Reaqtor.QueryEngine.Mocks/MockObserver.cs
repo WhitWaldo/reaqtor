@@ -75,8 +75,10 @@ namespace Reaqtor.QueryEngine.Mocks
         private long _currentCount;
 
         private readonly object _lock = new();
+#pragma warning disable CA2213
         private readonly ManualResetEvent _completed = new(false);
         private readonly ManualResetEvent _error = new(false);
+#pragma warning restore CA2213
 
 
         public IList<T> Values => _values;
@@ -169,5 +171,16 @@ namespace Reaqtor.QueryEngine.Mocks
         public bool WaitForCompleted(TimeSpan t) => _completed.WaitOne(t);
 
         public bool WaitForError(TimeSpan t) => _error.WaitOne(t);
+
+        /// <summary>
+        /// Performs custom operations upon disposing the observer.
+        /// </summary>
+        protected override void OnDispose()
+        {
+            _error?.Dispose();
+            _completed?.Dispose();
+
+            base.OnDispose();
+        }
     }
 }
