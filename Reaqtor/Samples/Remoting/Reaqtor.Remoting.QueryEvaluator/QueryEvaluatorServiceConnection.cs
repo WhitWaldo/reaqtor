@@ -24,7 +24,7 @@ namespace Reaqtor.Remoting.QueryEvaluator
 {
     public class QueryEvaluatorServiceConnection : RemotingReactiveServiceConnectionBase, IReactiveQueryEvaluatorConnection
     {
-        private static readonly Lazy<PhysicalScheduler> s_scheduler = new(() => PhysicalScheduler.Create());
+        private static readonly Lazy<PhysicalScheduler> s_scheduler = new(PhysicalScheduler.Create);
         private static readonly Uri s_qeId = new("reactor:/qe");
 
         private IReactivePlatformConfiguration _configuration;
