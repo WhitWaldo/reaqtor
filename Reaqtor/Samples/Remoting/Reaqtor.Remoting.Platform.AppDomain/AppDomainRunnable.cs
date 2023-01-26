@@ -50,7 +50,7 @@ namespace Reaqtor.Remoting.Platform
             {
                 IsRunning = true;
                 var tcs = new TaskCompletionSource<int>();
-                token.Register(() => Dispose());
+                token.Register(Dispose);
                 Instance = Target.CreateInstanceAndUnwrap(_type.Assembly.FullName, _type.FullName);
                 return Task.FromResult(default(int));
             }

@@ -48,7 +48,7 @@ namespace Reaqtor.Remoting.Platform
                     tcs.SetResult(Target.ExitCode);
                     Dispose();
                 };
-                token.Register(() => Dispose());
+                token.Register(Dispose);
                 Target.Start();
                 IsRunning = true;
                 return tcs.Task;
