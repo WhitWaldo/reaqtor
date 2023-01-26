@@ -117,6 +117,14 @@ namespace Reaqtor.Reliable
                 _inputs = new[] { _subscription };
             }
 
+            protected override void Dispose(bool disposing)
+            {
+                _subscription?.Dispose();
+                _reliableSubscription?.Dispose();
+
+                base.Dispose(disposing);
+            }
+
             #region IOperator
 
             public override IEnumerable<ISubscription> Inputs => _inputs;
