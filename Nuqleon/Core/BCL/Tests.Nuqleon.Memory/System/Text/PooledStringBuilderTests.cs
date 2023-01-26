@@ -119,11 +119,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.StringBuilder, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.StringBuilder, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => o.StringBuilder, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => o.StringBuilder, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -231,9 +231,9 @@ namespace Tests
         {
             var bigPool = StringBuilderPool.Create(1, 16, 2048);
             var smallPool = StringBuilderPool.Create(1, 16, 16);
-            TooBig(() => PooledStringBuilder.New(), h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 1024);
-            TooBig(() => bigPool.New(), h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 2048);
-            TooBig(() => smallPool.New(), h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 16);
+            TooBig(PooledStringBuilder.New, h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 1024);
+            TooBig(bigPool.New, h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 2048);
+            TooBig(smallPool.New, h => h.StringBuilder, (h, n) => h.Append(new string('*', n)), 16);
         }
     }
 }

@@ -117,11 +117,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.Stack, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.Stack, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => o, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => o, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -203,9 +203,9 @@ namespace Tests
         {
             var bigPool = StackPool<int>.Create(1, 16, 2048);
             var smallPool = StackPool<int>.Create(1, 16, 16);
-            TooBig(() => PooledStack<int>.New(), h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 1024);
-            TooBig(() => bigPool.New(), h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 2048);
-            TooBig(() => smallPool.New(), h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 16);
+            TooBig(PooledStack<int>.New, h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 1024);
+            TooBig(bigPool.New, h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 2048);
+            TooBig(smallPool.New, h => h.Stack, (h, n) => { for (var i = 0; i < n; i++) h.Push(i); }, 16);
         }
     }
 }

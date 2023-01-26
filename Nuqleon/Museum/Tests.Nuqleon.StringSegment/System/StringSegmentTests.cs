@@ -11,15 +11,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable ConvertClosureToMethodGroup
 
 namespace Tests
 {
     [TestClass]
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public class StringSegmentTests
     {
         //=================================================================\\
@@ -2161,9 +2164,13 @@ namespace Tests
 
             AssertWithVariations(
                 new[] { "", " ", "  ", "bar", "\t", " \t\r\n" },
-                s => string.IsNullOrWhiteSpace(s),
-                s => StringSegment.IsNullOrWhiteSpace(s)
-            );
+                string.IsNullOrWhiteSpace,
+                Actual);
+        }
+
+        private bool Actual(StringSegment s)
+        {
+            return StringSegment.IsNullOrWhiteSpace(s);
         }
 
         [TestMethod]

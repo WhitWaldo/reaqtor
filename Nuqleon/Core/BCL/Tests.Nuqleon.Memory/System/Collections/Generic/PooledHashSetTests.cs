@@ -122,11 +122,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.HashSet, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.HashSet, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => o, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => o, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -240,9 +240,9 @@ namespace Tests
         {
             var bigPool = HashSetPool<int>.Create(1, EqualityComparer<int>.Default, 2048);
             var smallPool = HashSetPool<int>.Create(1, EqualityComparer<int>.Default, 16);
-            TooBig(() => PooledHashSet<int>.New(), h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 1024);
-            TooBig(() => bigPool.New(), h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 2048);
-            TooBig(() => smallPool.New(), h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 16);
+            TooBig(PooledHashSet<int>.New, h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 1024);
+            TooBig(bigPool.New, h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 2048);
+            TooBig(smallPool.New, h => h.HashSet, (h, n) => h.UnionWith(Enumerable.Range(0, n)), 16);
         }
     }
 }

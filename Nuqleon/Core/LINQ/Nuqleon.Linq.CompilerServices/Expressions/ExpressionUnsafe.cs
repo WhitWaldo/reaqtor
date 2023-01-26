@@ -385,7 +385,7 @@ namespace System.Linq.Expressions
                 return fallback;
 
 #if NETSTANDARD2_0
-            var parameters = parameterTypes.Select(pt => Expression.Parameter(pt)).ToArray();
+            var parameters = parameterTypes.Select(Expression.Parameter).ToArray();
             return Expression.Lambda<TDelegate>(Expression.New(ctor, parameters), parameters).Compile();
 #else
             var mtd = new DynamicMethod(".ctor" + type.Name + "@" + parameterTypes.Length, type, parameterTypes, true);

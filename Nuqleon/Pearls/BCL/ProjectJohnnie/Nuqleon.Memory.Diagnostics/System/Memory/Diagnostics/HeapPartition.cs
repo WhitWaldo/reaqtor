@@ -92,7 +92,7 @@ namespace System.Memory.Diagnostics
 
             if (Fence == null && fence == null)
             {
-                finalFence = o => allReachableObjects.Add(o);
+                finalFence = allReachableObjects.Add;
             }
             else if (Fence == null || fence == null)
             {

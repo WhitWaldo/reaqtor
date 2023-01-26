@@ -126,11 +126,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.Dictionary, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.Dictionary, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => o, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => o, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -255,9 +255,9 @@ namespace Tests
         {
             var bigPool = DictionaryPool<int, string>.Create(1, 16, EqualityComparer<int>.Default, 2048);
             var smallPool = DictionaryPool<int, string>.Create(1, 16, EqualityComparer<int>.Default, 16);
-            TooBig(() => PooledDictionary<int, string>.New(), h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 1024);
-            TooBig(() => bigPool.New(), h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 2048);
-            TooBig(() => smallPool.New(), h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 16);
+            TooBig(PooledDictionary<int, string>.New, h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 1024);
+            TooBig(bigPool.New, h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 2048);
+            TooBig(smallPool.New, h => h.Dictionary, (h, n) => { for (var i = 0; i < n; i++) h.Add(i, ""); }, 16);
         }
     }
 }

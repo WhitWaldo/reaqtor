@@ -80,7 +80,7 @@ namespace Tests.System.Memory
             var strings = Enumerable.Range(1, uniqueCount).Select(x => "string" + x).ToArray();
             var refs = new IDiscardable<string>[rootedCount];
             var rand = new Random(17);
-            var tests = Enumerable.Repeat(strings, rootedCount * repeat).SelectMany(ss => ss).Select(s => Copy(s)).OrderBy(_ => rand.Next());
+            var tests = Enumerable.Repeat(strings, rootedCount * repeat).SelectMany(ss => ss).Select(Copy).OrderBy(_ => rand.Next());
 
             var count = 0;
             Parallel.ForEach(
@@ -107,7 +107,7 @@ namespace Tests.System.Memory
                 Task.WaitAll(
                     Task.Factory.StartNew(() => Assert.AreEqual(foo, cache.Create(foo).Value)),
                     Task.Factory.StartNew(() => Assert.AreEqual(copy, cache.Create(copy).Value)),
-                    Task.Factory.StartNew(() => GC.Collect())
+                    Task.Factory.StartNew(GC.Collect)
                 );
             }
         }

@@ -72,7 +72,7 @@ namespace Tests
 
                 Assert.ThrowsException<InvalidOperationException>(() => w.GetTarget());
 
-                var s = w.GetOrSetTarget(() => { return "qux".ToUpper(); });
+                var s = w.GetOrSetTarget("qux".ToUpper);
                 Assert.AreEqual("QUX", s);
 
                 Assert.IsTrue(w.TryGetTarget(out string target));

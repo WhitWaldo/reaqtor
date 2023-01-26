@@ -138,17 +138,17 @@ namespace Tests.System.Memory
         [TestMethod]
         public void Cache_AddWhileReleasing()
         {
-            var repeat = 1000;
+            const int repeat = 1000;
 
             var cache = new Cache<string>();
             for (var i = 0; i < repeat; ++i)
             {
-                var foo = "foo";
+                const string foo = "foo";
                 var copy = Copy(foo);
                 Task.WaitAll(
                     Task.Factory.StartNew(() => Assert.AreEqual(foo, cache.Create(foo).Value)),
                     Task.Factory.StartNew(() => Assert.AreEqual(copy, cache.Create(copy).Value)),
-                    Task.Factory.StartNew(() => GC.Collect())
+                    Task.Factory.StartNew(GC.Collect)
                 );
             }
         }

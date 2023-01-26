@@ -119,11 +119,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.MemoryStream, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.MemoryStream, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => (MemoryStream)o, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => (MemoryStream)o, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -281,16 +281,16 @@ namespace Tests
         {
             var bigPool = MemoryStreamPool.Create(1, 16, 2048);
             var smallPool = MemoryStreamPool.Create(1, 16, 16);
-            TooBig(() => PooledMemoryStream.New(), h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 1024);
-            TooBig(() => bigPool.New(), h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 2048);
-            TooBig(() => smallPool.New(), h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 16);
+            TooBig(PooledMemoryStream.New, h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 1024);
+            TooBig(bigPool.New, h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 2048);
+            TooBig(smallPool.New, h => h.MemoryStream, (h, n) => h.Write(new byte[n], 0, n), 16);
         }
 
         [TestMethod]
         public void PooledMemoryStream_DiscardIfNotWritable()
         {
             var i = 0;
-            TooBig(() => PooledMemoryStream.New(), h => h.MemoryStream, (h, n) => { if (++i == 2) { h.Dispose(); } }, 16);
+            TooBig(PooledMemoryStream.New, h => h.MemoryStream, (h, n) => { if (++i == 2) { h.Dispose(); } }, 16);
         }
     }
 }

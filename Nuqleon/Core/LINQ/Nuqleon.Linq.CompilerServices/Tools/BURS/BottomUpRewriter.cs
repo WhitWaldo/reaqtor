@@ -373,7 +373,7 @@ namespace System.Linq.CompilerServices
             var matches = GetWildcardMatches(node).ToList();
 
             var label = new Label<TSourceNodeType>(node, matches);
-            var res = new LabeledTree<TSourceNodeType>(label, node.Children.Select(childNode => LabelCore(childNode)));
+            var res = new LabeledTree<TSourceNodeType>(label, node.Children.Select(LabelCore));
 
             if (res.Children.Count == 0)
             {

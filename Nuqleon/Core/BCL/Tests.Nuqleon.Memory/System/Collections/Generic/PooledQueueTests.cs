@@ -117,11 +117,11 @@ namespace Tests
 
             if (useRAII)
             {
-                Run(() => pool.New(), o => o.Queue, o => o.Dispose(), testCore, P, M, noisy);
+                Run(pool.New, o => o.Queue, o => o.Dispose(), testCore, P, M, noisy);
             }
             else
             {
-                Run(() => pool.Allocate(), o => o, o => pool.Free(o), testCore, P, M, noisy);
+                Run(pool.Allocate, o => o, pool.Free, testCore, P, M, noisy);
             }
         }
 
@@ -203,9 +203,9 @@ namespace Tests
         {
             var bigPool = QueuePool<int>.Create(1, 16, 2048);
             var smallPool = QueuePool<int>.Create(1, 16, 16);
-            TooBig(() => PooledQueue<int>.New(), h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 1024);
-            TooBig(() => bigPool.New(), h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 2048);
-            TooBig(() => smallPool.New(), h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 16);
+            TooBig(PooledQueue<int>.New, h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 1024);
+            TooBig(bigPool.New, h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 2048);
+            TooBig(smallPool.New, h => h.Queue, (h, n) => { for (var i = 0; i < n; i++) h.Enqueue(i); }, 16);
         }
     }
 }

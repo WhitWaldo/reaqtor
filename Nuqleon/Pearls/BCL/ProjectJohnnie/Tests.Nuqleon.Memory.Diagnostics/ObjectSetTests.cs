@@ -337,7 +337,7 @@ namespace Tests.System.Memory.Diagnostics
 
             set.UnionWith(objs);
 
-            Assert.IsTrue(objs.All(obj => set.Contains(obj)));
+            Assert.IsTrue(objs.All(set.Contains));
         }
 
         [TestMethod]
