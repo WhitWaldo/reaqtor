@@ -173,7 +173,9 @@ namespace Reaqtor.QueryEngine.Mocks
                 private readonly Reliable<T> _parent;
                 private readonly IReliableObserver<T> _observer;
 
+#pragma warning disable CA2213
                 private IDisposable _disposable;
+#pragma warning restore CA2213
 
                 public Sub(Reliable<T> parent, IReliableObserver<T> observer)
                 {
@@ -330,7 +332,9 @@ namespace Reaqtor.QueryEngine.Mocks
 
                 private sealed class _ : Operator<IO<T>, T>
                 {
+#pragma warning disable CA2213
                     private IDisposable _disposable;
+#pragma warning restore CA2213
 
                     public _(IO<T> parent, IObserver<T> observer)
                         : base(parent, observer)
