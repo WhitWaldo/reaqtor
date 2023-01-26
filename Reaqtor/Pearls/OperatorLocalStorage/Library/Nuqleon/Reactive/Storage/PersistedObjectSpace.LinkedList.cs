@@ -1141,7 +1141,7 @@ namespace Reaqtive.Storage
                 /// <returns>The in-memory linked list node wrapper corresponding to the specified persisted linked list <paramref name="node"/>.</returns>
                 private static NodeWrapper GetWrapper(ILinkedListNode<T> node)
                 {
-                    return (NodeWrapper) node;
+                    return (NodeWrapper)node;
                 }
 
                 /// <summary>
