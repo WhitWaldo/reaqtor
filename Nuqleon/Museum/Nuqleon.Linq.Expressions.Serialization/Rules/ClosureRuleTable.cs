@@ -34,18 +34,7 @@ namespace Nuqleon.Linq.Expressions.Serialization
         /// <summary>
         /// Gets the singleton instance for the default, read-only closure serialization rule table.
         /// </summary>
-        public static RuleTableBase<object, Json.Expression, ExpressionJsonSerializationContext> Instance
-        {
-            get
-            {
-                if (s_instance == null)
-                {
-                    s_instance = new ClosureRuleTable().AsReadOnly();
-                }
-
-                return s_instance;
-            }
-        }
+        public static RuleTableBase<object, Json.Expression, ExpressionJsonSerializationContext> Instance => s_instance ??= new ClosureRuleTable().AsReadOnly();
 
         /// <summary>
         /// Creates an rule table with default rules for expression tree serialization.

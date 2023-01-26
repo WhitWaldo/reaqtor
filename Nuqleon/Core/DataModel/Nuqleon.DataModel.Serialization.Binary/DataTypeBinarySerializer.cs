@@ -40,31 +40,9 @@ namespace Nuqleon.DataModel.Serialization.Binary
         private ConditionalWeakTable<Type, Delegate>.CreateValueCallback _getSerializerCore;
         private ConditionalWeakTable<Type, Delegate>.CreateValueCallback _getDeserializerCore;
 
-        private ConditionalWeakTable<Type, Delegate>.CreateValueCallback GetDeserializerCoreMethod
-        {
-            get
-            {
-                if (_getDeserializerCore == null)
-                {
-                    _getDeserializerCore = GetDeserializerCore;
-                }
+        private ConditionalWeakTable<Type, Delegate>.CreateValueCallback GetDeserializerCoreMethod => _getDeserializerCore ??= GetDeserializerCore;
 
-                return _getDeserializerCore;
-            }
-        }
-
-        private ConditionalWeakTable<Type, Delegate>.CreateValueCallback GetSerializerCoreMethod
-        {
-            get
-            {
-                if (_getSerializerCore == null)
-                {
-                    _getSerializerCore = GetSerializerCore;
-                }
-
-                return _getSerializerCore;
-            }
-        }
+        private ConditionalWeakTable<Type, Delegate>.CreateValueCallback GetSerializerCoreMethod => _getSerializerCore ??= GetSerializerCore;
 
         /// <summary>
         /// Deserialize a serialized stream containing a given type.

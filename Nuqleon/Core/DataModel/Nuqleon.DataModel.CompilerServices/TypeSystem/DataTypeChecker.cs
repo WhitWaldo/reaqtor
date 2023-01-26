@@ -76,20 +76,9 @@ namespace Nuqleon.DataModel.TypeSystem
 
                 public Type Type { get; }
 
-                public List<string> Errors
-                {
-                    get
-                    {
-                        if (_errors == null)
-                        {
-                            _errors = new List<string>();
-                        }
+                public List<string> Errors => _errors ??= new List<string>();
 
-                        return _errors;
-                    }
-                }
-
-                public bool HasErrors => _errors != null && _errors.Count > 0;
+                public bool HasErrors => _errors is { Count: > 0 };
             }
 
             public ReadOnlyCollection<DataTypeError> Errors =>
