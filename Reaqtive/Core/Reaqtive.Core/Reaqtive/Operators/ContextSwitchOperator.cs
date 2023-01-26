@@ -97,7 +97,9 @@ namespace Reaqtive
             private bool _completed;
 
             private IOperatorContext _context;
+#pragma warning disable CA2213
             private IScheduler _childScheduler;
+#pragma warning restore CA2213
 
             private Exception _terminalError;
 
