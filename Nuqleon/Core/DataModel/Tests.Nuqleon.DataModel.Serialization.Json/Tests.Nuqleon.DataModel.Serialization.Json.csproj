@@ -11,5 +11,9 @@
     <ProjectReference Include="..\..\JSON\Nuqleon.Json\Nuqleon.Json.csproj" />
     <ProjectReference Include="..\..\LINQ\Nuqleon.Linq.Expressions.Bonsai.Serialization\Nuqleon.Linq.Expressions.Bonsai.Serialization.csproj" />
   </ItemGroup>
+  
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
 
 </Project>

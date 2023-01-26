@@ -33,7 +33,7 @@ namespace Reaqtor.Remoting.Protocol
 
         public Task<string> ExecuteAsync(CancellationToken token)
         {
-            return Invoke<string>(reply => _service.Execute(reply), token);
+            return Invoke<string>(_service.Execute, token);
         }
     }
 }

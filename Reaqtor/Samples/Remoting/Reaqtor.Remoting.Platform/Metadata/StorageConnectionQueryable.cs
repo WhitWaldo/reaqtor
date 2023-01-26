@@ -127,7 +127,7 @@ namespace Reaqtor.Remoting.Metadata
                 }
                 else
                 {
-                    var entities = _connection.GetEntities(_name).Select(e => Convert<TElement>(e)).AsQueryable();
+                    var entities = _connection.GetEntities(_name).Select(Convert<TElement>).AsQueryable();
                     var freeVariables = FreeVariableScanner.Scan(expression).ToArray();
                     if (freeVariables.Length == 1)
                     {

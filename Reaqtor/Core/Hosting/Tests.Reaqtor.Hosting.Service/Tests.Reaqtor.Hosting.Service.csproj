@@ -9,4 +9,8 @@
     <ProjectReference Include="..\..\Shared\Reaqtor.Shared.Core\Reaqtor.Shared.Core.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
+
 </Project>

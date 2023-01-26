@@ -32,7 +32,7 @@ namespace Reaqtor.Remoting.Protocol
 
         public IDisposable Execute(IObserver<string> result)
         {
-            return Invoke(token => _obj.ExecuteAsync(token), result);
+            return Invoke(_obj.ExecuteAsync, result);
         }
     }
 }

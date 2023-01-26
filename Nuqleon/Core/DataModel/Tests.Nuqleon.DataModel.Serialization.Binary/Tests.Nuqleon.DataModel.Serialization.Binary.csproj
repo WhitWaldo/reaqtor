@@ -37,4 +37,8 @@
     </Compile>
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
+
 </Project>

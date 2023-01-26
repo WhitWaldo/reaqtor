@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Nuqleon.DataModel\Nuqleon.DataModel.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
+  
 </Project>
