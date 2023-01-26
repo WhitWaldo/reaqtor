@@ -13,6 +13,10 @@
     <EmbeddedResource Include="Data\storewithmissingbridge.txt" LogicalName="$(AssemblyName).Data.storewithmissingbridge.txt" />
     <EmbeddedResource Include="Data\storewithorphanedbridges.txt" LogicalName="$(AssemblyName).Data.storewithorphanedbridges.txt" />
   </ItemGroup>
+  
+  <PropertyGroup>
+    <NoWarn>IDE0200</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
