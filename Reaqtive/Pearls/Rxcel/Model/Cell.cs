@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reactive.Disposables;
@@ -22,6 +23,7 @@ using System.Reactive.Subjects;
 
 namespace Rxcel
 {
+    [SuppressMessage("ReSharper", "ConvertClosureToMethodGroup")]
     internal sealed class Cell : IDisposable
     {
         private readonly Sheet _sheet;

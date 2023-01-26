@@ -11,6 +11,7 @@
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -19,6 +20,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Tests.System.Linq.Expressions
 {
     [TestClass]
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public class ListArgumentProviderSlimTests
     {
         [TestMethod]

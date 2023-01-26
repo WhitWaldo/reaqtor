@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.CompilerServices;
 using System.Linq.Expressions;
@@ -29,6 +30,7 @@ using Json = Nuqleon.Json.Expressions;
 namespace Tests
 {
     [TestClass]
+    [SuppressMessage("ReSharper", "ConvertClosureToMethodGroup")]
     public partial class Tests
     {
         #region Constant

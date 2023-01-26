@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Linq.CompilerServices;
@@ -29,6 +30,7 @@ using Microsoft.CSharp.RuntimeBinder;
 namespace Tests
 {
     [TestClass]
+    [SuppressMessage("ReSharper", "ConvertClosureToMethodGroup")]
     public class Tests
     {
         [TestMethod]
