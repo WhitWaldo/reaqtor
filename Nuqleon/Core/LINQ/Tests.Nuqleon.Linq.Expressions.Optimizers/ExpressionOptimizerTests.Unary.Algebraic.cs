@@ -9,6 +9,7 @@
 //
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -17,6 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.System.Linq.Expressions.Optimizers
 {
+    [SuppressMessage("Style", "IDE0200:Remove unnecessary lambda expression")]
     public partial class ExpressionOptimizerTests
     {
         [TestMethod]

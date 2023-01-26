@@ -1151,7 +1151,7 @@ namespace Nuqleon.Linq.Expressions.Serialization.TypeSystem
             {
                 var oldMembers = res.Members;
                 var newMembers = oldMembers.ToDictionary(kv => kv.Key, kv => kv.Value);
-                newMembers[KEYS] = Json.Expression.Array(_keys.Select(key => Json.Expression.String(key)));
+                newMembers[KEYS] = Json.Expression.Array(_keys.Select(Json.Expression.String));
                 res = Json.Expression.Object(newMembers);
             }
 
